@@ -1,0 +1,1424 @@
+//BlockFall//
+//Controls//
+var right = RIGHT;
+var left = LEFT;
+var up = UP;
+var shoot = 32; //[SPACE]
+
+//Settings//
+var StartHealth = 300;
+var PlayerSpeed = 4;
+var ShotSpeed = 4;
+var JumpHeight = 50;
+var BlockSpeed = 0.5;
+var BlockSpeedMultiplierTrue = true;
+var BlockSpeedMultiplier = 1.0006;
+var Invincibility = false;
+var MaxHeight = true;
+
+//Tips --
+//Your shots will travel in the last direction you moved
+//Don't jump off the screen
+//Shoot 10 blocks without any hitting you or the ground to gain a multiplier
+//Press up repeatedly to jump higher
+
+
+//Post your Highest Score in Tips and Feedback
+//Different Blocks may be in future updates
+//Check out my other programs too! - https://www.khanacademy.org/cs/waverider/4709453450444800//
+
+
+var a = 1;
+var b = 1;
+var c = 1;
+var d = 1;
+var e = 1;
+var f = 1; 
+var g = 1;
+var h = 1;
+var i = 1;
+var j = 1;
+var k = 1;
+var l = 1;
+var m = 1;
+var n = 1;
+var o = 1;
+var p = 1;
+var bA = false;
+var bB = false;
+var bC = false;
+var bD = false;
+var bE = false;
+var bF = false;
+var bG = false;
+var bH = false;
+var bI = false;
+var bJ = false;
+var bK = false;
+var bL = false;
+var bM = false;
+var bN = false;
+var bO = false;
+var bP = false;
+var cA = 0;
+var cB = 0;
+var cC = 0;
+var cD = 0;
+var cE = 0;
+var cF = 0;
+var cG = 0;
+var cH = 0;
+var cI = 0;
+var cJ = 0;
+var cK = 0;
+var cL = 0;
+var cM = 0;
+var cN = 0;
+var cO = 0;
+var cP = 0;
+var fA = -30;
+var fB = -30;
+var fC = -30;
+var fD = -30;
+var fE = -30;
+var fF = -30;
+var fG = -30;
+var fH = -30;
+var fI = -30;
+var fJ = -30;
+var fK = -30;
+var fL = -30;
+var fM = -30;
+var fN = -30;
+var fO = -30;
+var fP = -30;
+var pX = 200;
+var pY = 0;
+var time = 0;
+var jump = false;
+var UpdateBlockFall = false;
+var BF = 0;
+var grav = 1;
+var jumpEnd = 0;
+var air = true;
+var damage = 0;
+var immunity = 0;
+var playerFill = 255;
+var flashRep = 0;
+var flash = 255;
+var shootRIGHT = false;
+var shootLEFT = true;
+var shotCount = 5;
+var shotRep = 0;
+var s1 = false;
+var s2 = false;
+var s3 = false;
+var s4 = false;
+var s5 = false;
+var sx1 = -200;
+var sy1 = 200;
+var sx2 = -200;
+var sy2 = 20;
+var sx3 = -200;
+var sy3 = 200;
+var sx4 = -200;
+var sy4 = 200;
+var sx5 = -200;
+var sy5 = 200;
+var s1LEFT = false;
+var s2LEFT = false;
+var s3LEFT = false;
+var s4LEFT = false;
+var s5LEFT = false;
+var s1i = false;
+var s2i = false;
+var s3i = false;
+var s4i = false;
+var s5i = false;
+var sx = -100;
+var sy = -100;
+var xA = false;
+var xB = false;
+var xC = false;
+var xD = false;
+var xE = false;
+var xF = false;
+var xG = false;
+var xH = false;
+var xI = false;
+var xJ = false;
+var xK = false;
+var xL = false;
+var xM = false;
+var xN = false;
+var xO = false;
+var xP = false;
+var rot = 0;
+var EndFade = 0;
+var EndFadeB = 0;
+var EndFadeC = 255;
+var EndGame = false;
+var FadeA = 100;
+var FadeB = 100;
+var P = 0;
+var M = 0;
+var textSizeA = 12;
+var textSizeB = 12;
+var Points = 0;
+var Mult = 1;
+var OldMult = 1;
+var columnText = "z";
+var PointTally = 0;
+var HighScore = 0;
+var Destruction = false;
+var dI = false;
+var heart = getImage("space/healthheart");
+var menu = true;
+var fallTime = 0;
+var fall = 0;
+var classic = false;
+var Conoff = false;
+
+var keys = [];
+var keyReleased = function(){keys[keyCode] = false;};
+var keyPressed = function(){
+    keys[keyCode] = true;
+if (keys[shoot] && shotRep === 0 && shotCount > 0 && EndGame === false && menu === false) {
+        if (shotCount === 1 && s5 === false) {
+            s5 = true;
+            shotCount = 6;
+            shotRep = 10;
+            s5i = true;
+        }
+        if (shotCount === 2 && s4 === false) {
+            s4 = true;
+            shotCount -= 1;
+            shotRep = 3;
+            s4i = true;
+        }
+        if (shotCount === 3 && s3 === false) {
+            s3 = true;
+            shotCount -= 1;
+            shotRep = 3;
+            s3i = true;
+        }
+        if (shotCount === 4 && s2 === false) {
+            s2 = true;
+            shotCount -= 1;
+            shotRep = 3;
+            s2i = true;
+        }
+        if (shotCount === 5 && s1 === false) {
+            s1 = true;
+            shotCount -= 1;
+            shotRep = 3;
+            s1i = true;
+        }
+        if (shootLEFT === true && s1i === true) {
+            s1LEFT = true;
+        } else {
+            if (s1i === true) {
+                s1LEFT = false;
+            }
+        }
+        if (shootLEFT === true && s2i === true) {
+            s2LEFT = true;
+        } else {
+            if (s2i === true) {
+                s2LEFT = false;
+            }
+        }
+        if (shootLEFT === true && s3i === true) {
+            s3LEFT = true;
+        } else {
+            if (s3i === true) {
+                s3LEFT = false;
+            }
+        }
+        if (shootLEFT === true && s4i === true) {
+            s4LEFT = true;
+        } else {
+            if (s4i === true) {
+                s4LEFT = false;
+            }
+        }
+        if (shootLEFT === true && s5i === true) {
+            s5LEFT = true;
+        } else {
+            if (s5i === true) {
+                s5LEFT = false;
+            }
+        }
+}
+};
+    
+    //Define Block Chance
+    var BlockFall = function() {
+        if (UpdateBlockFall === true && EndGame === false && menu === false) {
+        cA = round(random(1, 16));
+        if (cA === 8) {
+            bA = true;
+        }
+        cB = round(random(1, 16));
+        if (cB === 8) {
+            bB = true;
+        }
+        cC = round(random(1, 16));
+        if (cC === 8) {
+            bC = true;
+        }
+        cD = round(random(1, 16));
+        if (cD === 8) {
+            bD = true;
+        }
+        cE = round(random(1, 16));
+        if (cE === 8) {
+            bE = true;
+        }
+        cF = round(random(1, 16));
+        if (cF === 8) {
+            bF = true;
+        }
+        cG = round(random(1, 16));
+        if (cG === 8) {
+            bG = true;
+        }
+        cH = round(random(1, 16));
+        if (cH === 8) {
+            bH = true;
+        }
+        cI = round(random(1, 16));
+        if (cI === 8) {
+            bI = true;
+        }
+        cJ = round(random(1, 16));
+        if (cJ === 8) {
+            bJ = true;
+        }
+        cK = round(random(1, 16));
+        if (cK === 8) {
+            bK = true;
+        }
+        cL = round(random(1, 16));
+        if (cL === 8) {
+            bL = true;
+        }
+        cM = round(random(1, 16));
+        if (cM === 8) {
+            bM = true;
+        }
+        cN = round(random(1, 16));
+        if (cN === 8) {
+            bN = true;
+        }
+        cO = round(random(1, 16));
+        if (cO === 8) {
+            bO = true;
+        }
+        cP = round(random(1, 16));
+        if (cP === 8) {
+            bP = true;
+        }
+        }
+    };
+    
+    
+    var draw = function() {
+        
+    //Draw Ground
+    var plotMap = [a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p];
+    background(61, 34, 1);
+    if (classic === false) {
+    for (var bRep = 0; bRep < 32; bRep += 1) {
+        stroke(0, 0, 0, bRep * 5);
+        strokeWeight(10);
+        noFill();
+        ellipse(200, 300, 80 + bRep * 20, 80 + bRep * 20);
+    }
+    }
+    noStroke();
+    fill(143, 80, 3);
+    for (var PlotRep = 0; PlotRep < 16; PlotRep += 1) {
+        fill(143, 80, 3);
+        rect(25 * PlotRep, 400 - plotMap[PlotRep] * 25, 25, 400);
+        if (classic === false) {
+        for (var dRep = 0; dRep < 32; dRep += 1) {
+            fill(0, 0, 0, dRep * 5);
+            rect(25 * PlotRep, 400 - plotMap[PlotRep] * 25 + dRep * 12.5, 25, 12.5);
+        }
+        }
+    }
+    fill(143, 80, 3);
+    time += BlockSpeed;
+    BF += BlockSpeed;
+    if (UpdateBlockFall === true) {
+        UpdateBlockFall = false;
+    }
+    if (BF >= 25 ) {
+        UpdateBlockFall = true;
+        BF = 0;
+    }
+    
+    if (dI === true) {
+        a = 4;
+        b = 4;
+        c = 4;
+        d = 4;
+        e = 4;
+        f = 4;
+        g = 4;
+        h = 4;
+        i = 4;
+        j = 4;
+        k = 4;
+        l = 4;
+        m = 4;
+        n = 4;
+        o = 4;
+        p = 4;
+        dI = false;
+    }
+    
+        //Draw Falling Blocks
+        if (BlockSpeedMultiplierTrue === true && menu === false) {
+        BlockSpeed *= BlockSpeedMultiplier;
+        }
+        if (bA === true) {
+            fA += BlockSpeed;
+            rect(0, fA - 25, 25, 25);
+        }
+        if (bB === true) {
+            fB += BlockSpeed;
+            rect(25, fB - 25, 25, 25);
+        }
+        if (bC === true) {
+            fC += BlockSpeed;
+            rect(50, fC - 25, 25, 25);
+        }
+        if (bD === true) {
+            fD += BlockSpeed;
+            rect(75, fD - 25, 25, 25);
+        }
+        if (bE === true) {
+            fE += BlockSpeed;
+            rect(100, fE - 25, 25, 25);
+        }
+        if (bF === true) {
+            fF += BlockSpeed;
+            rect(125, fF - 25, 25, 25);
+        }
+        if (bG === true) {
+            fG += BlockSpeed;
+            rect(150, fG - 25, 25, 25);
+        }
+        if (bH === true) {
+            fH += BlockSpeed;
+            rect(175, fH - 25, 25, 25);
+        }
+        if (bI === true) {
+            fI += BlockSpeed;
+            rect(200, fI - 25, 25, 25);
+        }
+        if (bJ === true) {
+            fJ += BlockSpeed;
+            rect(225, fJ - 25, 25, 25);
+        }
+        if (bK === true) {
+            fK += BlockSpeed;
+            rect(250, fK - 25, 25, 25);
+        }
+        if (bL === true) {
+            fL += BlockSpeed;
+            rect(275, fL - 25, 25, 25);
+        }
+        if (bM === true) {
+            fM += BlockSpeed;
+            rect(300, fM - 25, 25, 25);
+        }
+        if (bN === true) {
+            fN += BlockSpeed;
+            rect(325, fN - 25, 25, 25);
+        }
+        if (bO === true) {
+            fO += BlockSpeed;
+            rect(350, fO - 25, 25, 25);
+        }
+        if (bP === true) {
+            fP += BlockSpeed;
+            rect(375, fP - 25, 25, 25);
+        }
+        
+        
+        //Define Block Impact
+        if (Destruction === false) {
+        if (fA >= 400 - (a * 25)) {
+            fA = -30;
+            a += 1;
+            bA = false;
+            M = 0;
+        } 
+        if (fB >= 400 - (b * 25)) {
+            fB = -30;
+            b += 1;
+            bB = false;
+            M = 0;
+        } 
+        if (fC >= 400 - (c * 25)) {
+            fC = -30;
+            c += 1;
+            bC = false;
+            M = 0;
+        } 
+        if (fD >= 400 - (d * 25)) {
+            fD = -30;
+            d += 1;
+            bD = false;
+            M = 0;
+        } 
+        if (fE >= 400 - (e * 25)) {
+            fE = -30;
+            e += 1;
+            bE = false;
+            M = 0;
+        } 
+        if (fF >= 400 - (f * 25)) {
+            fF = -30;
+            f += 1;
+            bF = false;
+            M = 0;
+        } 
+        if (fG >= 400 - (g * 25)) {
+            fG = -30;
+            g += 1;
+            bG = false;
+            M = 0;
+        } 
+        if (fH >= 400 - (h * 25)) {
+            fH = -30;
+            h += 1;
+            bH = false;
+            M = 0;
+        } 
+        if (fI >= 400 - (i * 25)) {
+            fI = -30;
+            i += 1;
+            bI = false;
+            M = 0;
+        } 
+        if (fJ >= 400 - (j * 25)) {
+            fJ = -30;
+            j += 1;
+            bJ = false;
+            M = 0;
+        } 
+        if (fK >= 400 - (k * 25)) {
+            fK = -30;
+            k += 1;
+            bK = false;
+            M = 0;
+        } 
+        if (fL >= 400 - (l * 25)) {
+            fL = -30;
+            l += 1;
+            bL = false;
+            M = 0;
+        } 
+        if (fM >= 400 - (m * 25)) {
+            fM = -30;
+            m += 1;
+            bM = false;
+            M = 0;
+        } 
+        if (fN >= 400 - (n * 25)) {
+            fN = -30;
+            n += 1;
+            bN = false;
+            M = 0;
+        } 
+        if (fO >= 400 - (o * 25)) {
+            fO = -30;
+            o += 1;
+            bO = false;
+            M = 0;
+        } 
+        if (fP >= 400 - (p * 25)) {
+            fP = -30;
+            p += 1;
+            bP = false;
+            M = 0;
+        }
+        } else {
+            if (fA >= 400 - (a * 25)) {
+            fA = -30;
+            a -= 1;
+            bA = false;
+            M = 0;
+        } 
+        if (fB >= 400 - (b * 25)) {
+            fB = -30;
+            b -= 1;
+            bB = false;
+            M = 0;
+        } 
+        if (fC >= 400 - (c * 25)) {
+            fC = -30;
+            c -= 1;
+            bC = false;
+            M = 0;
+        } 
+        if (fD >= 400 - (d * 25)) {
+            fD = -30;
+            d -= 1;
+            bD = false;
+            M = 0;
+        } 
+        if (fE >= 400 - (e * 25)) {
+            fE = -30;
+            e -= 1;
+            bE = false;
+            M = 0;
+        } 
+        if (fF >= 400 - (f * 25)) {
+            fF = -30;
+            f -= 1;
+            bF = false;
+            M = 0;
+        } 
+        if (fG >= 400 - (g * 25)) {
+            fG = -30;
+            g -= 1;
+            bG = false;
+            M = 0;
+        } 
+        if (fH >= 400 - (h * 25)) {
+            fH = -30;
+            h -= 1;
+            bH = false;
+            M = 0;
+        } 
+        if (fI >= 400 - (i * 25)) {
+            fI = -30;
+            i -= 1;
+            bI = false;
+            M = 0;
+        } 
+        if (fJ >= 400 - (j * 25)) {
+            fJ = -30;
+            j -= 1;
+            bJ = false;
+            M = 0;
+        } 
+        if (fK >= 400 - (k * 25)) {
+            fK = -30;
+            k -= 1;
+            bK = false;
+            M = 0;
+        } 
+        if (fL >= 400 - (l * 25)) {
+            fL = -30;
+            l -= 1;
+            bL = false;
+            M = 0;
+        } 
+        if (fM >= 400 - (m * 25)) {
+            fM = -30;
+            m -= 1;
+            bM = false;
+            M = 0;
+        } 
+        if (fN >= 400 - (n * 25)) {
+            fN = -30;
+            n -= 1;
+            bN = false;
+            M = 0;
+        } 
+        if (fO >= 400 - (o * 25)) {
+            fO = -30;
+            o -= 1;
+            bO = false;
+            M = 0;
+        } 
+        if (fP >= 400 - (p * 25)) {
+            fP = -30;
+            p -= 1;
+            bP = false;
+            M = 0;
+        }
+        }
+        
+        //Define Block Damage
+        if (EndGame === false && menu === false) {
+        if (pX - 10 < 25 && pX + 10 > 0 && pY - 30 < fA && pY > fA - 25) {
+            damage += 100;
+            immunity = 25;
+            fA = -30;
+            bA = false;
+            M = 0;
+        }
+        if (pX - 10 < 50 && pX + 10 > 25 && pY - 30 < fB && pY > fB - 25) {
+            damage += 100;
+            immunity = 25;
+            fB = -30;
+            bB = false;
+            M = 0;
+        }
+        if (pX - 10 < 75 && pX + 10 > 50 && pY - 30 < fC && pY > fC - 25) {
+            damage += 100;
+            immunity = 25;
+            fC = -30;
+            bC = false;
+            M = 0;
+        }
+        if (pX - 10 < 100 && pX + 10 > 75 && pY - 30 < fD && pY > fD - 25) {
+            damage += 100;
+            immunity = 25;
+            fD = -30;
+            bD = false;
+            M = 0;
+        }
+        if (pX - 10 < 125 && pX + 10 > 100 && pY - 30 < fE && pY > fE - 25) {
+            damage += 100;
+            immunity = 25;
+            fE = -30;
+            bE = false;
+            M = 0;
+        }
+        if (pX - 10 < 150 && pX + 10 > 125 && pY - 30 < fF && pY > fF - 25) {
+            damage += 100;
+            immunity = 25;
+            fF = -30;
+            bF = false;
+            M = 0;
+        }
+        if (pX - 10 < 175 && pX + 10 > 150 && pY - 30 < fG && pY > fG - 25) {
+            damage += 100;
+            immunity = 25;
+            fG = -30;
+            bG = false;
+            M = 0;
+        }
+        if (pX - 10 < 200 && pX + 10 > 175 && pY - 30 < fH && pY > fH - 25) {
+            damage += 100;
+            immunity = 25;
+            fH = -30;
+            bH = false;
+            M = 0;
+        }
+        if (pX - 10 < 225 && pX + 10 > 200 && pY - 30 < fI && pY > fI - 25) {
+            damage += 100;
+            immunity = 25;
+            fI = -30;
+            bI = false;
+            M = 0;
+        }
+        if (pX - 10 < 250 && pX + 10 > 225 && pY - 30 < fJ && pY > fJ - 25) {
+            damage += 100;
+            immunity = 25;
+            fJ = -30;
+            bJ = false;
+            M = 0;
+        }
+        if (pX - 10 < 275 && pX + 10 > 250 && pY - 30 < fK && pY > fK - 25) {
+            damage += 100;
+            immunity = 25;
+            fK = -30;
+            bK = false;
+            M = 0;
+            
+        }
+        if (pX - 10 < 300 && pX + 10 > 275 && pY - 30 < fL && pY > fL - 25) {
+            damage += 100;
+            immunity = 25;
+            fL = -30;
+            bL = false;
+            M = 0;
+        }
+        if (pX - 10 < 325 && pX + 10 > 300 && pY - 30 < fM && pY > fM - 25) {
+            damage += 100;
+            immunity = 25;
+            fM = -30;
+            bM = false;
+            M = 0;
+        }
+        if (pX - 10 < 350 && pX + 10 > 325 && pY - 30 < fN && pY > fN - 25) {
+            damage += 100;
+            immunity = 25;
+            fN = -30;
+            bN = false;
+            M = 0;
+        }
+        if (pX - 10 < 375 && pX + 10 > 350 && pY - 30 < fO && pY > fO - 25) {
+            damage += 100;
+            immunity = 25;
+            fO = -30;
+            bO = false;
+            M = 0;
+        }
+        if (pX - 10 < 400 && pX + 10 > 375 && pY - 30 < fP && pY > fP - 25) {
+            damage += 100;
+            immunity = 25;
+            fP = -30;
+            bP = false;
+            M = 0;
+        }
+        }
+        
+        //Define Block Destroyed
+        sx = [sx1, sx2, sx3, sx4, sx5];
+        sy = [sy1, sy2, sy3, sy4, sy5];
+        for(var sRep = 0; sRep < 5; sRep += 1) {
+            if (sx[sRep] - 10 < 25 && sx[sRep] + 10 > 0 && sy[sRep] - 10 < fA && sy[sRep] + 10 > fA - 25) {
+                bA = false;
+                fA = -30;
+                P += 1;
+                M += 1;
+            }
+            if (sx[sRep] - 10 < 50 && sx[sRep] + 10 > 25 && sy[sRep] - 10 < fB && sy[sRep] + 10 > fB - 25) {
+                bB = false;
+                fB = -30;
+                P += 1;
+                M += 1;
+            }
+            if (sx[sRep] - 10 < 75 && sx[sRep] + 10 > 50 && sy[sRep] - 10 < fC && sy[sRep] + 10 > fC - 25) {
+                bC = false;
+                fC = -30;
+                P += 1;
+                M += 1;
+            }
+            if (sx[sRep] - 10 < 100 && sx[sRep] + 10 > 75 && sy[sRep] - 10 < fD && sy[sRep] + 10 > fD - 25) {
+                bD = false;
+                fD = -30;
+                P += 1;
+                M += 1;
+            }
+            if (sx[sRep] - 10 < 125 && sx[sRep] + 10 > 100 && sy[sRep] - 10 < fE && sy[sRep] + 10 > fE - 25) {
+                bE = false;
+                fE = -30;
+                P += 1;
+                M += 1;
+            }
+            if (sx[sRep] - 10 < 150 && sx[sRep] + 10 > 125 && sy[sRep] - 10 < fF && sy[sRep] + 10 > fF - 25) {
+                bF = false;
+                fF = -30;
+                P += 1;
+                M += 1;
+            }
+            if (sx[sRep] - 10 < 175 && sx[sRep] + 10 > 150 && sy[sRep] - 10 < fG && sy[sRep] + 10 > fG - 25) {
+                bG = false;
+                fG = -30;
+                P += 1;
+            }
+            if (sx[sRep] - 10 < 200 && sx[sRep] + 10 > 175 && sy[sRep] - 10 < fH && sy[sRep] + 10 > fH - 25) {
+                bH = false;
+                fH = -30;
+                P += 1;
+                M += 1;
+            }
+            if (sx[sRep] - 10 < 225 && sx[sRep] + 10 > 200 && sy[sRep] - 10 < fI && sy[sRep] + 10 > fI - 25) {
+                bI = false;
+                fI = -30;
+                P += 1;
+                M += 1;
+            }
+            if (sx[sRep] - 10 < 250 && sx[sRep] + 10 > 225 && sy[sRep] - 10 < fJ && sy[sRep] + 10 > fJ - 25) {
+                bJ = false;
+                fJ = -30;
+                M += 1;
+            }
+            if (sx[sRep] - 10 < 275 && sx[sRep] + 10 > 250 && sy[sRep] - 10 < fK && sy[sRep] + 10 > fK - 25) {
+                bK = false;
+                fK = -30;
+                P += 1;
+                M += 1;
+            }
+            if (sx[sRep] - 10 < 300 && sx[sRep] + 10 > 275 && sy[sRep] - 10 < fL && sy[sRep] + 10 > fL - 25) {
+                bL = false;
+                fL = -30;
+                P += 1;
+                M += 1;
+            }
+            if (sx[sRep] - 10 < 325 && sx[sRep] + 10 > 300 && sy[sRep] - 10 < fM && sy[sRep] + 10 > fM - 25) {
+                bM = false;
+                fM = -30;
+                P += 1;
+                M += 1;
+            }
+            if (sx[sRep] - 10 < 350 && sx[sRep] + 10 > 325 && sy[sRep] - 10 < fN && sy[sRep] + 10 > fN - 25) {
+                bN = false;
+                fN = -30;
+                P += 1;
+                M += 1;
+            }
+            if (sx[sRep] - 10 < 375 && sx[sRep] + 10 > 350 && sy[sRep] - 10 < fO && sy[sRep] + 10 > fO - 25) {
+                bO = false;
+                fO = -30;
+                P += 1;
+                M += 1;
+            }
+            if (sx[sRep] - 10 < 400 && sx[sRep] + 10 > 375 && sy[sRep] - 10 < fP && sy[sRep] + 10 > fP - 25) {
+                bP = false;
+                fP = -30;
+                P += 1;
+                M += 1;
+            }
+        }
+        
+        //Define Column
+        if (pX >= 0 && pX < 25) {
+            xA = true;
+            columnText = "a";
+        }
+        if (pX >= 25 && pX < 50) {
+            xB = true;
+            columnText = "b";
+        }
+        if (pX >= 50 && pX < 75) {
+            xC = true;
+            columnText = "c";
+        }
+        if (pX >= 75 && pX < 100) { 
+            xD = true;
+            columnText = "d";
+        }
+        if (pX >= 100 && pX < 125) {
+            xE = true;
+            columnText = "e";
+        }
+        if (pX >= 125 && pX < 150) {
+            xF = true;
+            columnText = "f";
+        }
+        if (pX >= 150 && pX < 175) {
+            xG = true;
+            columnText = "g";
+        }
+        if (pX >= 175 && pX < 200) { 
+            xH = true;
+            columnText = "h";
+        }
+        if (pX >= 200 && pX < 225) {
+            xI = true;
+            columnText = "i";
+        }
+        if (pX >= 225 && pX < 250) {
+            xJ = true;
+            columnText = "j";
+        }
+        if (pX >= 250 && pX < 275) {
+            xK = true;
+            columnText = "k";
+        }
+        if (pX >= 275 && pX < 300) { 
+            xL = true;
+            columnText = "l";
+        }
+        if (pX >= 300 && pX < 325) {
+            xM = true;
+            columnText = "m";
+        }
+        if (pX >= 325 && pX < 350) {
+            xN = true;
+            columnText = "n";
+        }
+        if (pX >= 350 && pX < 375) {
+            xO = true;
+            columnText = "o";
+        }
+        if (pX >= 375 && pX <= 400) { 
+            xP = true;
+            columnText = "p";
+        }
+        
+        //Define Max Height
+if (MaxHeight === true) {
+    if (a >= 16) {
+        a = 16;
+    }
+    if (b >= 16) {
+        b = 16;
+    }
+    if (c >= 16) {
+        c = 16;
+    }
+    if (d >= 16) {
+        d = 16;
+    }
+    if (e >= 16) {
+        e = 16;
+    }
+    if (f >= 16) {
+        f = 16;
+    }
+    if (g >= 16) {
+        g = 16;
+    }
+    if (h >= 16) {
+        h = 16;
+    }
+    if (i >= 16) {
+        i = 16;
+    }
+    if (j >= 16) {
+        j = 16;
+    }
+    if (k >= 16) {
+        k = 16;
+    }
+    if (l >= 16) {
+        l = 16;
+    }
+    if (m >= 16) {
+        m = 16;
+    }
+    if (n >= 16) {
+        n = 16;
+    }
+    if (o >= 16) {
+        o = 16;
+    }
+    if (p >= 16) {
+        p = 16;
+    }
+}
+    
+        
+        //Define Character
+        if (EndGame === false && menu === false) {
+        if (keys[left] && pX >= 14) {
+            pX -= PlayerSpeed;
+            shootLEFT = true;
+            shootRIGHT = false;
+        }
+        if (keys[right] && pX <= 386) {
+            pX += PlayerSpeed;
+            shootLEFT = false;
+            shootRIGHT = true;
+        }
+        if (keys[up] && jumpEnd === 0) {
+            jump = true;
+        }
+        }
+        if (jump === true && jumpEnd < 5) {
+            pY -= JumpHeight/5;
+            jumpEnd += 1;
+        } else {
+            if (jumpEnd > 0 && keyIsPressed === false) {
+                jumpEnd = 0;
+            }
+        }
+        if (jumpEnd <= 0) {
+            jumpEnd = 0;
+        }
+        if (jumpEnd >= 5) {
+            jump = false;
+        }
+        var groundLevel = 400 - (plotMap[round(pX/25 - 0.5)] * 25);
+        if (pY < groundLevel && jump === false && menu === false) {
+            pY += grav;
+            if (grav <= 8) {
+                grav *= 1.2;
+            }
+        } else {
+             grav = 1;
+        }
+        if (pY >= groundLevel) {
+            pY = groundLevel;
+            air = false;
+            jumpEnd = 0;
+        } else {
+            air = true;
+        }
+        
+        //Define Shot
+        if (s1i === true) {
+            sx1 = pX;
+            sy1 = pY - 20;
+            s1i = false;
+        }
+        if (s2i === true) {
+            sx2 = pX;
+            sy2 = pY - 20;
+            s2i = false;
+        }
+        if (s3i === true) {
+            sx3 = pX;
+            sy3 = pY - 20;
+            s3i = false;
+        }
+        if (s4i === true) {
+            sx4 = pX;
+            sy4 = pY - 20;
+            s4i = false;
+        }
+        if (s5i === true) {
+            sx5 = pX;
+            sy5 = pY - 20;
+            s5i = false;
+        }
+        if (shotRep > 0) {
+            shotRep -= 1;
+        }
+        if (s1 === true) {
+            if (s1LEFT === true) {
+                if (sx1 > 10) {
+                sx1 -= ShotSpeed;
+                } else {
+                    s1LEFT = false;
+                }
+            } else {
+                if (sx1 < 390) {
+                sx1 += ShotSpeed;
+                } else {
+                    s1LEFT = true;
+                }
+            }
+            sy1 -= ShotSpeed;
+            if (sy1 < - 10) {
+                s1 = false;
+                sy1 = 800;
+                s1LEFT = false;
+            }
+        }
+        if (s2 === true) {
+            if (s2LEFT === true) {
+                if (sx2 > 10) {
+                sx2 -= ShotSpeed;
+                } else {
+                    s2LEFT = false;
+                }
+            } else {
+                if (sx2 < 390) {
+                sx2 += ShotSpeed;
+                } else {
+                    s2LEFT = true;
+                }
+            }
+            sy2 -= ShotSpeed;
+            if (sy2 < - 10) {
+                s2 = false;
+                sy2 = 800;
+                s2LEFT = false;
+            }
+        }
+        if (s3 === true) {
+            if (s3LEFT === true) {
+                if (sx3 > 10) {
+                sx3 -= ShotSpeed;
+                } else {
+                    s3LEFT = false;
+                }
+            } else {
+                if (sx3 < 390) {
+                sx3 += ShotSpeed;
+                } else {
+                    s3LEFT = true;
+                }
+            }
+            sy3 -= ShotSpeed;
+            if (sy3 < - 10) {
+                s3 = false;
+                sy3 = 800;
+                s3LEFT = false;
+            }
+        }
+        if (s4 === true) {
+            if (s4LEFT === true) {
+                if (sx4 > 10) {
+                sx4 -= ShotSpeed;
+                } else {
+                    s4LEFT = false;
+                }
+            } else {
+                if (sx4 < 390) {
+                sx4 += ShotSpeed;
+                } else {
+                    s4LEFT = true;
+                }
+            }
+            sy4 -= ShotSpeed;
+            if (sy4 < - 10) {
+                s4 = false;
+                sy4 = 800;
+                s4LEFT = false;
+            }
+        }
+        if (s5 === true) {
+            if (s5LEFT === true) {
+                if (sx5 > 10) {
+                sx5 -= ShotSpeed;
+                } else {
+                    s5LEFT = false;
+                }
+            } else {
+                if (sx5 < 390) {
+                sx5 += ShotSpeed;
+                } else {
+                    s5LEFT = true;
+                }
+            }
+            sy5 -= ShotSpeed;
+            if (sy5 < - 10) {
+                s5 = false;
+                sy5 = 800;
+                s5LEFT = false;
+            }
+        }
+        fill(255);
+        strokeWeight(2);
+        stroke(200);
+        ellipse(sx1, sy1, 20, 20);
+        ellipse(sx2, sy2, 20, 20);
+        ellipse(sx3, sy3, 20, 20);
+        ellipse(sx4, sy4, 20, 20);
+        ellipse(sx5, sy5, 20, 20);
+        if (shotCount > 5) {
+            shotCount -= 1;
+        }
+        
+        text(columnText, 10, 15);
+        
+        //Define Health
+        var Health = StartHealth - damage;
+        if (Invincibility === true) {
+            Health = StartHealth;
+        }
+        if (Health <= 0) {
+            Health = 0;
+        }
+        if (immunity > 0) {
+            immunity -= 1;
+            playerFill = flash;
+        } else {
+            if (rot === 0) {
+            playerFill = 255;
+            }
+        }
+        if (flash < 255) {
+            flash += 51;
+        } else {
+            flash = 0;
+        }
+        if (pY >= 400) {
+            damage = StartHealth;
+            EndFadeC = 0;
+        }
+        
+        //Draw Health
+        for(var hRep = 0; hRep < Health/100; hRep += 1) {
+            image(heart, 5 + hRep * 25, 378, 20, 20);
+        }
+        
+        //Draw Character
+        noStroke();
+        if (EndGame === true && air === false) {
+            if (rot > -10) {
+                rot -= 0.5;
+            }
+            if (EndFadeC > 0) {
+                EndFadeC -= 2;
+            }
+            fill(255, EndFadeC, EndFadeC);
+        } else {
+            fill(playerFill);
+        }
+        var pH = pY + rot;
+        translate(pX, pH);
+        rotate(rot * 9);
+        rect(-10, 0, 20, -12);
+        ellipse(0, -20, 20, 20);
+        rect(-10, 0, 20, jumpEnd);
+        resetMatrix();
+        fill(255);
+        
+        //Draw Points
+        if (textSizeA > 12) {
+            textSizeA -= 0.5;
+        }
+        if (textSizeB > 12) {
+            textSizeB -= 0.5;
+        }
+        OldMult = Mult;
+        Mult = round(M/10 - 0.5) + 1;
+        if (OldMult < Mult) {
+            textSizeB = 14;
+        }
+        var OldPoints = Points;
+        if (P > 0) {
+            Points += P * Mult;
+        }
+        P = 0;
+        if (OldPoints < Points) {
+            textSizeA = 14;
+        }
+        textSize(textSizeA);
+        text(Points, 290, 15);
+        textSize(12);
+        text("Points", 250, 15);
+        textSize(textSizeB);
+        textSize(12);
+        text("Mulitplier  x " + Mult, 320, 15);
+        
+        
+        //Define Terrain
+        var columnSelect = round(pX/25 - 0.5);
+        if (plotMap[columnSelect] < plotMap[columnSelect - 1] && pY > 400 - (plotMap[columnSelect - 1] * 25) && pX <= columnSelect * 25 + 4) {
+            pX = columnSelect * 25 + 4;
+        }
+        if (plotMap[columnSelect] < plotMap[columnSelect + 1] && pY > 400 - (plotMap[columnSelect + 1] * 25) && pX >= columnSelect * 25 + 21) {
+            pX = columnSelect * 25 + 20;
+        }
+        
+        //Draw EndGame
+        if (Health <= 0) {
+            EndGame = true;
+        }
+        
+        if (EndGame === true && EndFadeC <= 0) {
+            fill(0, 0, 0, EndFade);
+            rect(0, 0, 400, 400);
+            if (EndFade < 255) {
+                EndFade += 2.55;
+            } else {
+                if (EndFadeB < 255) {
+                    EndFadeB += 5.1;
+                }
+                if (PointTally < Points){
+                    PointTally += 2;
+                } else {
+                    PointTally = Points;
+                }
+                fill(255, 255, 255, EndFadeB);
+                textSize(71);
+                text("Game Over", 15, 200);
+                textSize(40);
+                text("+ " + PointTally, 148, 260);
+                
+            }
+        }
+        
+        //Draw Menu
+if (menu === true) {
+    fill(74, 40, 1);
+    rect(0, 0, 400, 400);
+    if (classic === false) {
+    for (var bRep = 0; bRep < 32; bRep += 1) {
+        stroke(0, 0, 0, bRep * 3);
+        strokeWeight(10);
+        noFill();
+        ellipse(200, 300, 80 + bRep * 20, 80 + bRep * 20);
+    }
+    }
+    strokeWeight(3);
+    if (classic === false) {
+    for(var rRep = 0; rRep < 4; rRep += 1) {
+        stroke(75, 75, 75, 255 - (rRep * (255/4)));
+        rect(47 - rRep * 3, 150 - rRep * 3, 306 + rRep * 6, 201 + rRep * 6);
+    }
+    }
+    stroke(75);
+    fill(61, 34, 1);
+    rect(47, 150, 306, 201);
+    line(200, 150, 200, 350);
+    fill(143, 80, 3);
+    noStroke();
+    rect(49, 338, 150, 12);
+    rect(61, 326, 24, 12);
+    rect(73, 314, 12, 12);
+    rect(97, 326, 24, 12);
+    rect(133, 326, 12, 12);
+    rect(157, 314, 24, 24);
+    rect(169, 290, 12, 24);
+    rect(181, 326, 12, 12);
+    
+    rect(202, 338, 150, 12);
+    rect(202, 302, 12, 36);
+    rect(214, 326, 12, 12);
+    rect(226, 314, 12, 24);
+    rect(250, 326, 102, 12);
+    rect(262, 302, 60, 24);
+    rect(334, 314, 18, 12);
+    rect(346, 302, 6, 12);
+    
+    fill(71, 40, 1);
+    stroke(75);
+    rect(60, 45, 280, 65);
+    noStroke(); 
+    
+    fill(255);
+    rect(114, 320, 10, 6);
+    ellipse(119, 316, 10, 10);
+    rect(277, 296, 10, 6);
+    ellipse(282, 292, 10, 10);
+    if (classic === false) {
+    for(var mRep = 0; mRep < 5; mRep += 1) {
+        fill(125, 125, 125 , 255 - mRep * 50);
+        textSize(60 + mRep * 2);
+        text("BlockFall", 80 - mRep * 4, 100 + mRep);
+        fill(0, 0, 0, mRep * 20);
+        rect(60, 45 + mRep * 13, 280, 13);
+    }
+    }
+    fill(220);
+    textSize(60);
+    text("BlockFall", 80, 100);
+    if (mouseX >= 50 && mouseX <= 200 && mouseY >= 150 && mouseY <= 350) {
+        if (FadeA > 0){
+        FadeA -= 10;
+        }
+        if (mouseIsPressed) {
+            menu = false;
+        }
+    } else {
+        if (FadeA < 100) {
+            FadeA += 10;
+        }
+    }
+    fill(255, 255, 255, 255 - FadeA * 2);
+    textSize(22);
+    text("Construction", 62, 180);
+    fill(0, 0, 0, FadeA);
+    rect(49, 152, 150, 198);
+    
+    if (mouseX > 200 && mouseX <= 350 && mouseY >= 150 && mouseY <= 350) {
+        if (FadeB > 0){
+        FadeB -= 10;
+        }
+        if (mouseIsPressed) {
+            Destruction = true;
+            dI = true;
+            menu = false;
+        }
+    } else {
+        if (FadeB < 100) {
+            FadeB += 10;
+        }
+    }
+    fill(255, 255, 255, 255 - FadeB * 2);
+    textSize(22);
+    text("Destruction", 220, 180);
+    fill(0, 0, 0, FadeB);
+    rect(202, 152, 150, 198);
+    fill(143, 80, 3);
+    textSize(15);
+    if (mouseX >= 60 && mouseX <= 340 && mouseY >= 45 && mouseY <= 110 && mouseIsPressed) {
+        text("Press 'C' to toggle Classic", 220, 383);
+    } else {
+    text("by Matt", 280, 383);
+    
+    }
+}
+    if (keys[67] && classic === false && Conoff === false) {
+        classic = true;
+    }
+    if (keys[67] && classic === true && Conoff === true) {
+        classic = false;
+    }
+    if (classic === true && keyIsPressed !== true) {
+        Conoff = true;
+    }
+    if (classic === false && keyIsPressed !== true) {
+        Conoff = false;
+    }
+
+BlockFall();
+};
